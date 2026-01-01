@@ -120,7 +120,12 @@ const Hero = () => {
           {/* Glow effect behind phone */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[650px] bg-gradient-to-b from-primary/30 to-secondary/30 rounded-full blur-[80px] -z-10"></div>
           
-          <Mockup />
+          {/* 
+            To add a video to the mockup:
+            1. Place your video file (e.g., demo.mp4) in the 'public' folder.
+            2. Pass the path to the videoSrc prop: <Mockup videoSrc="/demo.mp4" />
+          */}
+          <Mockup videoSrc="" /> 
         </motion.div>
       </div>
     </section>
