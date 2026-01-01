@@ -25,6 +25,22 @@ const Navbar = () => {
 
   const toggleTheme = () => setIsDark(!isDark);
 
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setIsOpen(false);
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offset = 80; // Height of the navbar + some padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 dark:bg-dark/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,9 +52,9 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
-              <a href="#features" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Features</a>
-              <a href="#tech" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Tech Stack</a>
-              <a href="#download" className="bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition-all duration-200">Get App</a>
+              <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Features</a>
+              <a href="#tech" onClick={(e) => handleNavClick(e, 'tech')} className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Tech Stack</a>
+              <a href="#download" onClick={(e) => handleNavClick(e, 'download')} className="bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition-all duration-200">Get App</a>
               <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                 {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-600" />}
               </button>
@@ -63,9 +79,9 @@ const Navbar = () => {
             className="md:hidden bg-white dark:bg-dark border-b border-gray-200 dark:border-gray-800 overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-2">
-              <a href="#features" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Features</a>
-              <a href="#tech" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Tech Stack</a>
-              <a href="#download" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Get App</a>
+              <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Features</a>
+              <a href="#tech" onClick={(e) => handleNavClick(e, 'tech')} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Tech Stack</a>
+              <a href="#download" onClick={(e) => handleNavClick(e, 'download')} className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-gray-50 dark:hover:bg-gray-800">Get App</a>
             </div>
           </motion.div>
         )}
