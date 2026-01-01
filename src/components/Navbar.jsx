@@ -28,24 +28,27 @@ const Navbar = () => {
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     setIsOpen(false);
-    const element = document.getElementById(targetId);
-    if (element) {
-      const offset = 80; // Height of the navbar + some padding
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+    
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const offset = 80; // Height of the navbar + some padding
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }, 100);
   };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 dark:bg-dark/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0 flex items-center gap-2 font-bold text-2xl tracking-tight cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex-shrink-0 flex items-center gap-2 font-bold text-2xl tracking-tight cursor-pointer" onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img src="/StrivenLogo.png" alt="Striven Logo" className="w-8 h-8" />
             <span className="text-gray-900 dark:text-white">Striven</span>
             <span className="text-primary">.</span>
