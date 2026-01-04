@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 const Mockup = ({ videoSrc }) => {
   const [isMuted, setIsMuted] = useState(true);
@@ -17,20 +18,22 @@ const Mockup = ({ videoSrc }) => {
   };
 
   return (
-    <div className="relative mx-auto">
-      {/* Phone Frame */}
-      <div className="relative border-gray-900 dark:border-gray-900 bg-gray-900 border-[12px] rounded-[3rem] h-[650px] w-[320px] shadow-2xl shadow-primary/10 ring-1 ring-gray-700/50">
-        {/* Dynamic Island / Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[28px] w-[100px] bg-black rounded-b-2xl z-20"></div>
+    <div className="relative mx-auto group">
+      {/* Premium Phone Frame */}
+      <div className="relative border-gray-900 dark:border-gray-800 bg-gradient-to-b from-gray-900 to-gray-950 border-[14px] rounded-[3.5rem] h-[650px] w-[320px] shadow-2xl shadow-black/50 ring-2 ring-gray-700/30 hover:ring-primary/30 transition-all duration-500">
+        {/* Dynamic Island */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[30px] w-[110px] bg-black rounded-b-3xl z-20 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-transparent"></div>
+        </div>
         
-        {/* Side Buttons */}
-        <div className="h-[40px] w-[4px] bg-gray-800 absolute -left-[16px] top-[100px] rounded-l-lg"></div>
-        <div className="h-[70px] w-[4px] bg-gray-800 absolute -left-[16px] top-[160px] rounded-l-lg"></div>
-        <div className="h-[70px] w-[4px] bg-gray-800 absolute -left-[16px] top-[240px] rounded-l-lg"></div>
-        <div className="h-[90px] w-[4px] bg-gray-800 absolute -right-[16px] top-[180px] rounded-r-lg"></div>
+        {/* Premium Side Buttons with Metallic Effect */}
+        <div className="h-[46px] w-[3px] bg-gradient-to-b from-gray-700 to-gray-800 absolute -left-[17px] top-[100px] rounded-l-lg shadow-inner"></div>
+        <div className="h-[76px] w-[3px] bg-gradient-to-b from-gray-700 to-gray-800 absolute -left-[17px] top-[160px] rounded-l-lg shadow-inner"></div>
+        <div className="h-[76px] w-[3px] bg-gradient-to-b from-gray-700 to-gray-800 absolute -left-[17px] top-[246px] rounded-l-lg shadow-inner"></div>
+        <div className="h-[96px] w-[3px] bg-gradient-to-b from-gray-700 to-gray-800 absolute -right-[17px] top-[180px] rounded-r-lg shadow-inner"></div>
 
-        {/* Screen Content */}
-        <div className="rounded-[2.2rem] overflow-hidden w-full h-full bg-white dark:bg-gray-950 relative z-10">
+        {/* Screen Content with Premium Bezel */}
+        <div className="rounded-[2.8rem] overflow-hidden w-full h-full bg-white dark:bg-gray-950 relative z-10 ring-1 ring-inset ring-gray-800/50">
           {videoSrc ? (
             <>
               <video 
@@ -42,72 +45,66 @@ const Mockup = ({ videoSrc }) => {
                 muted={isMuted} 
                 playsInline 
               />
-              <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+              {/* Premium Control Panel - Always visible on mobile, hover on desktop */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3 bg-black/70 backdrop-blur-xl px-5 py-3 rounded-2xl border border-white/10 shadow-2xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                 <button 
                   onClick={togglePlay}
-                  className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors backdrop-blur-sm"
+                  className="p-2.5 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-xl text-white transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
                   {isPlaying ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="6" y="4" width="4" height="16"></rect>
-                      <rect x="14" y="4" width="4" height="16"></rect>
-                    </svg>
+                    <Pause className="w-5 h-5" />
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
+                    <Play className="w-5 h-5 fill-white" />
                   )}
                 </button>
                 <button 
                   onClick={() => setIsMuted(!isMuted)}
-                  className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors backdrop-blur-sm"
+                  className="p-2.5 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-xl text-white transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
                   aria-label={isMuted ? "Unmute video" : "Mute video"}
                 >
                   {isMuted ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                      <line x1="23" y1="9" x2="17" y2="15"></line>
-                      <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
+                    <VolumeX className="w-5 h-5" />
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    </svg>
+                    <Volume2 className="w-5 h-5" />
                   )}
                 </button>
               </div>
             </>
           ) : (
               <div className="w-full h-full flex flex-col relative">
-                  {/* Status Bar Placeholder */}
-                  <div className="h-12 w-full flex justify-between items-center px-6 pt-2">
-                    <span className="text-xs font-medium text-gray-900 dark:text-white">9:41</span>
-                    <div className="flex gap-1">
-                      <div className="w-4 h-2.5 bg-gray-900 dark:bg-white rounded-[1px]"></div>
-                      <div className="w-0.5 h-2.5 bg-gray-900 dark:bg-white/30 rounded-[1px]"></div>
+                  {/* Premium Status Bar */}
+                  <div className="h-14 w-full flex justify-between items-center px-7 pt-3 bg-gradient-to-b from-gray-100/50 to-transparent dark:from-gray-900/50">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white tracking-tight">9:41</span>
+                    <div className="flex gap-1.5 items-center">
+                      <div className="w-5 h-3 bg-gray-900 dark:bg-white rounded-[2px] relative">
+                        <div className="absolute inset-0.5 bg-primary/20 rounded-[1px]"></div>
+                      </div>
+                      <div className="w-0.5 h-3 bg-gray-900 dark:bg-white/40 rounded-full"></div>
                     </div>
                   </div>
 
-                  {/* App UI Placeholder */}
-                  <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black p-6 text-center">
-                      <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 text-primary animate-pulse">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  {/* Premium App UI Placeholder */}
+                  <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-900 dark:to-black p-8 text-center">
+                      <div className="relative mb-8">
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-emerald-500/20 rounded-[2rem] blur-2xl"></div>
+                        <div className="relative w-24 h-24 bg-gradient-to-br from-primary to-emerald-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-primary/30 animate-pulse">
+                          <Play className="w-12 h-12 fill-white" />
+                        </div>
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Striven</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Your AI Fitness Companion</p>
+                      <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2">Striven</h3>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Enterprise Fitness Intelligence</p>
                       
-                      {/* Fake UI Elements */}
-                      <div className="w-full mt-12 space-y-3">
-                        <div className="h-16 w-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"></div>
-                        <div className="h-16 w-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"></div>
-                        <div className="h-16 w-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"></div>
+                      {/* Premium Feature Cards */}
+                      <div className="w-full mt-10 space-y-3">
+                        <div className="h-16 w-full bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-850 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow"></div>
+                        <div className="h-16 w-full bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-850 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow"></div>
+                        <div className="h-16 w-full bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-850 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow"></div>
                       </div>
                   </div>
                   
-                  {/* Home Indicator */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[120px] h-[4px] bg-gray-900 dark:bg-white rounded-full opacity-50"></div>
+                  {/* Premium Home Indicator */}
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-[130px] h-1 bg-gradient-to-r from-transparent via-gray-900 to-transparent dark:from-transparent dark:via-white dark:to-transparent rounded-full opacity-40"></div>
               </div>
           )}
         </div>

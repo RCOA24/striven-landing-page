@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { X, CreditCard, Wallet } from 'lucide-react';
+import { X, CreditCard, Wallet, ChevronRight, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 
 const SupportModal = ({ isOpen, onClose }) => {
   const [amount, setAmount] = useState(100);
   const [customAmount, setCustomAmount] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('gcash');
+  const [paymentMethod, setPaymentMethod] = useState('grab_pay');
   const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -74,92 +74,110 @@ const SupportModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const themeColor = 'bg-[#00B14F]'; // GrabPay Green
+  const themeText = 'text-[#00B14F]';
+  const themeBorder = 'border-[#00B14F]';
+  const themeRing = 'focus:ring-[#00B14F]';
+  const isGCash = false; // Not using GCash
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-        <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-        >
-          <X className="w-6 h-6" />
-        </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-all">
+      <div className="bg-gray-50 dark:bg-gray-900 rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-200 border border-gray-200 dark:border-gray-800">
+        
+        {/* Header */}
+        <div className={`${themeColor} p-6 text-white relative overflow-hidden transition-colors duration-300`}>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-10 -mb-10 blur-xl"></div>
+          
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors z-20"
+          >
+            <X className="w-6 h-6" />
+          </button>
 
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Support Development</h3>
-        <p className="text-gray-500 dark:text-gray-400 mb-6">
-          Your contribution helps keep Striven alive and free for everyone.
-        </p>
+          <h3 className="text-2xl font-bold mb-1 relative z-10">Send Support</h3>
+          <p className="text-white/80 text-sm relative z-10">
+            Secure payment via PayMongo
+          </p>
+        </div>
 
-        <div className="space-y-6">
-          {/* Amount Selection */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              Select Amount (PHP)
-            </label>
-            <div className="grid grid-cols-3 gap-3 mb-3">
-              {[50, 100, 250, 500, 1000].map((val) => (
-                <button
-                  key={val}
-                  onClick={() => { setAmount(val); setCustomAmount(''); }}
-                  className={`py-2 px-4 rounded-xl border transition-all ${
-                    amount === val && !customAmount
-                      ? 'bg-primary text-white border-primary'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  ₱{val}
-                </button>
-              ))}
+        <div className="p-6 space-y-6">
+          {/* Payment Method Display */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="flex items-center justify-center gap-3">
+              <div className="w-12 h-12 bg-[#00B14F] rounded-xl flex items-center justify-center">
+                <Wallet className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Payment via</div>
+                <div className="text-lg font-bold text-gray-900 dark:text-white">GrabPay</div>
+              </div>
             </div>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">₱</span>
+          </div>
+
+          {/* Test Mode Notice */}
+          <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-3 text-xs text-amber-700 dark:text-amber-400">
+            <div className="font-semibold mb-1">🧪 Test Mode Active</div>
+            <div>Use test GrabPay credentials. No real charges.</div>
+          </div>
+
+          {/* Amount Display */}
+          <div className="text-center py-2">
+            <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Amount to Send</label>
+            <div className="relative inline-block">
+              <span className={`text-4xl font-bold ${themeText} absolute -left-6 top-1/2 -translate-y-1/2`}>₱</span>
               <input
                 type="number"
-                placeholder="Custom Amount"
-                value={customAmount}
-                onChange={(e) => { setCustomAmount(e.target.value); setAmount(0); }}
-                className="w-full pl-8 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent focus:ring-2 focus:ring-primary focus:border-transparent outline-none dark:text-white"
+                value={customAmount || (amount > 0 ? amount : '')}
+                onChange={(e) => { 
+                  setCustomAmount(e.target.value); 
+                  setAmount(0); 
+                }}
+                placeholder="0.00"
+                className={`text-5xl font-bold text-gray-900 dark:text-white bg-transparent w-48 text-center outline-none placeholder-gray-200 dark:placeholder-gray-700`}
               />
             </div>
           </div>
 
-          {/* Payment Method */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              Payment Method
-            </label>
-            <div className="grid grid-cols-2 gap-3">
+          {/* Quick Amounts */}
+          <div className="grid grid-cols-4 gap-2">
+            {[100, 250, 500, 1000].map((val) => (
               <button
-                onClick={() => setPaymentMethod('gcash')}
-                className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all ${
-                  paymentMethod === 'gcash'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-blue-600 text-gray-700 dark:text-gray-300'
+                key={val}
+                onClick={() => { setAmount(val); setCustomAmount(''); }}
+                className={`py-2 px-1 rounded-xl text-sm font-medium border transition-all ${
+                  amount === val && !customAmount
+                    ? `${themeBorder} ${themeText} bg-white dark:bg-gray-800 ring-1 ${themeRing.replace('focus:', '')}`
+                    : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
-                <Wallet className="w-5 h-5" />
-                GCash
+                ₱{val}
               </button>
-              <button
-                onClick={() => setPaymentMethod('paymaya')}
-                className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all ${
-                  paymentMethod === 'paymaya'
-                    ? 'bg-green-600 text-white border-green-600'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-green-600 text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                <CreditCard className="w-5 h-5" />
-                Maya
-              </button>
-            </div>
+            ))}
           </div>
 
+          {/* Pay Button */}
           <button
             onClick={handlePayment}
             disabled={isLoading || (!amount && !customAmount)}
-            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className={`w-full py-4 ${themeColor} text-white rounded-2xl font-bold text-lg shadow-lg shadow-blue-500/20 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 group`}
           >
-            {isLoading ? 'Processing...' : `Donate ₱${customAmount || amount}`}
+            {isLoading ? (
+              <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>
+                <span>Send ₱{customAmount || amount}</span>
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
           </button>
+
+          {/* Footer Trust */}
+          <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+            <ShieldCheck className="w-3 h-3" />
+            <span>Secured by PayMongo</span>
+          </div>
         </div>
       </div>
     </div>
