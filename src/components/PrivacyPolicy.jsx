@@ -6,6 +6,14 @@ import { X } from 'lucide-react';
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
+  const handleClose = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-dark transition-colors duration-300">
       <motion.div 
@@ -14,7 +22,7 @@ const PrivacyPolicy = () => {
         className="max-w-4xl mx-auto relative"
       >
         <button 
-          onClick={() => navigate('/')}
+          onClick={handleClose}
           className="absolute -top-2 right-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           aria-label="Close"
         >

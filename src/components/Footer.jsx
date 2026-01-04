@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="text-center md:text-left">
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Quick Links</h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex flex-col items-center md:items-start">
               <li>
                 <a href="#features" className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-1 group">
                   Features

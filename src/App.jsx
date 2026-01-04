@@ -9,6 +9,7 @@ import DownloadSection from './components/DownloadSection';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import ScrollToTop from './components/ScrollToTop';
 
 const LandingPage = () => (
   <main>
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-white dark:bg-dark transition-colors duration-300">
         <Toaster position="top-center" richColors />
         <Navbar />
