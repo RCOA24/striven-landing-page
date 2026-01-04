@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Toaster } from 'sonner';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-dark transition-colors duration-300">
+      <Toaster position="top-center" richColors />
       <Navbar />
       <main>
         <Hero />

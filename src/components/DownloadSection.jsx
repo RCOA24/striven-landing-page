@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Smartphone, Globe, Github, CloudDownload, MessageSquare } from 'lucide-react';
+import { Download, Smartphone, Globe, Github, CloudDownload, MessageSquare, Heart } from 'lucide-react';
+import SupportModal from './SupportModal';
 
 const DownloadSection = () => {
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+
   return (
     <section id="download" className="py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <SupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -19,7 +23,7 @@ const DownloadSection = () => {
             As a solo developer, I am building Striven from the ground up. Contributions of any size help keep the project alive, and your feedback is essential for squashing bugs and refining features. Thank you for being part of the journey.
           </p>
 
-          <div className="mb-12">
+          <div className="flex flex-col items-center gap-6 mb-12">
             <a 
               href="https://tally.so/r/1AdEYL" 
               target="_blank" 
@@ -29,7 +33,20 @@ const DownloadSection = () => {
               <MessageSquare className="w-5 h-5 mr-2" />
               <span className="font-medium">Share Feedback & Bug Reports</span>
             </a>
+
+            <button 
+              onClick={() => setIsSupportModalOpen(true)}
+              className="flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1"
+            >
+              <Heart className="w-6 h-6 mr-3 text-pink-500 fill-pink-500" />
+              <div className="text-left">
+                <div className="text-xs font-medium opacity-80">Support Development</div>
+                <div className="text-lg font-bold">Donate via GCash</div>
+              </div>
+            </button>
           </div>
+
+          
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="/StrivenFitness.apk" download className="flex items-center justify-center px-8 py-4 bg-primary text-white rounded-2xl hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
@@ -56,6 +73,7 @@ const DownloadSection = () => {
               </div>
             </a>
             
+  
             <a href="https://gumroad.com/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1">
               <Download className="w-6 h-6 mr-3 text-pink-500" />
               <div className="text-left">
