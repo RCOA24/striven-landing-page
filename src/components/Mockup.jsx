@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 const Mockup = ({ videoSrc }) => {
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef(null);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="relative mx-auto">
       {/* Phone Frame */}
@@ -17,7 +32,53 @@ const Mockup = ({ videoSrc }) => {
         {/* Screen Content */}
         <div className="rounded-[2.2rem] overflow-hidden w-full h-full bg-white dark:bg-gray-950 relative z-10">
           {videoSrc ? (
-              <video src={videoSrc} className="w-full h-full object-cover" autoPlay loop muted playsInline />
+            <>
+              <video 
+                ref={videoRef}
+                src={videoSrc} 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                loop 
+                muted={isMuted} 
+                playsInline 
+              />
+              <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+                <button 
+                  onClick={togglePlay}
+                  className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors backdrop-blur-sm"
+                  aria-label={isPlaying ? "Pause video" : "Play video"}
+                >
+                  {isPlaying ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  )}
+                </button>
+                <button 
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors backdrop-blur-sm"
+                  aria-label={isMuted ? "Unmute video" : "Mute video"}
+                >
+                  {isMuted ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </>
           ) : (
               <div className="w-full h-full flex flex-col relative">
                   {/* Status Bar Placeholder */}

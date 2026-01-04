@@ -125,7 +125,7 @@ const Hero = () => {
             1. Place your video file (e.g., demo.mp4) in the 'public/videos' folder.
             2. Pass the path to the videoSrc prop: <Mockup videoSrc="/videos/demo.mp4" />
           */}
-          <Mockup videoSrc="/videos/AiFoodScanner.mp4" /> 
+          <Mockup videoSrc="/videos/FinalStriven.mp4" /> 
         </motion.div>
       </div>
     </section>
