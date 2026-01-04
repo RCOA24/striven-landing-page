@@ -77,10 +77,10 @@ const PrivacyPolicy = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. Contact Us</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. Contact Me</h2>
             <p>
-              If you have any questions about this privacy policy or our privacy practices, please contact us at: 
-              <a href="mailto:support@striven.com" className="text-primary hover:underline ml-1">support@striven.com</a>
+              If you have any questions about this privacy policy or our privacy practices, please contact me at: 
+              <a href="mailto:rodneycharlesaustria1124@gmail.com" className="text-primary hover:underline ml-1">rodneycharlesaustria1124@gmail.com</a>
             </p>
           </section>
 
